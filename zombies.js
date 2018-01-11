@@ -111,8 +111,6 @@ class Player {
   getMaxHealth() {
     return this._maxHealth;
   }
-}
-
 
 /**
  * Player Class Method => takeItem(item)
@@ -132,6 +130,16 @@ class Player {
  * @return {boolean} true/false     Whether player was able to store item in pack.
  */
 
+  takeItem(item) {
+    if (this._pack.length >= 3) {
+      console.log("Player " + this.name + "has a full pack already!");
+      return false;
+    } else {
+      console.log("Added " + item + "to Player " + this.name + "'s pack!");
+      this._pack.push(item);
+      return true;
+    }
+  }
 
 /**
  * Player Class Method => discardItem(item)
@@ -159,6 +167,18 @@ class Player {
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
 
+  discardItem(item) {
+    let index = this._pack.indexOf(item);
+    if (index === -1) {
+      console.log("Nothing was discarded since " + item.name + " could not be found.");
+      return false;
+    } else {
+      this._pack.splice(index, 1);
+      console.log(item.name + " was removed from Player " + this.name + "'s pack.");
+      return true;
+    }
+  }
+}
  /**
  * Player Class Method => checkPack()
  * -----------------------------
