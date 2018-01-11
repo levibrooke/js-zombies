@@ -8,6 +8,11 @@
  * @property {string} name
  */
 
+class Item {
+  constructor(name) {
+    return this.name = name;
+  }
+}
 
 /**
  * Class => Weapon(name, damage)
@@ -25,13 +30,17 @@
  * @property {number} damage
  */
 
-
 /**
  * Weapon Extends Item Class
  * -----------------------------
  */
 
-
+class Weapon extends Item{
+  constructor(name, damage) {
+   super(name);
+   this.damage = damage;
+  }
+}
 
 /**
  * Class => Food(name, energy)
@@ -49,13 +58,17 @@
  * @property {number} energy
  */
 
-
 /**
  * Food Extends Item Class
  * -----------------------------
  */
 
-
+class Food extends Item {
+  constructor(name, energy) {
+    super(name);
+    this.energy = energy;
+  }
+}
 
 /**
  * Class => Player(name, health, strength, speed)
@@ -79,18 +92,26 @@
  * @property {method} getMaxHealth         Returns private variable `maxHealth`.
  */
 
+class Player {
+  constructor(name, health, strength, speed) {
+    this._pack = []; // private properties
+    this._maxHealth = health;
+    this.name = name; // public properties
+    this.health = health;
+    this.strength = strength;
+    this.speed = speed;
+    this.isAlive = true;
+    this.equipped = false;
+  }
 
-/**
- * Player Class Method => checkPack()
- * -----------------------------
- * Player checks the contents of their pack.
- *
- * Nicely format and print the items in the player's pack.
- * To access the pack, be sure to use Player's getPack method.
- * You should be able to invoke this function on a Player instance.
- *
- * @name checkPack
- */
+  getPack() {
+    return this._pack;
+  }
+
+  getMaxHealth() {
+    return this._maxHealth;
+  }
+}
 
 
 /**
@@ -136,6 +157,18 @@
  * @name discardItem
  * @param {Item/Weapon/Food} item   The item to discard.
  * @return {boolean} true/false     Whether player was able to remove item from pack.
+ */
+
+ /**
+ * Player Class Method => checkPack()
+ * -----------------------------
+ * Player checks the contents of their pack.
+ *
+ * Nicely format and print the items in the player's pack.
+ * To access the pack, be sure to use Player's getPack method.
+ * You should be able to invoke this function on a Player instance.
+ *
+ * @name checkPack
  */
 
 
