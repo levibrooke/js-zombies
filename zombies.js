@@ -131,12 +131,12 @@ class Player {
  */
 
   takeItem(item) {
-    if (this._pack.length >= 3) {
+    if (this.getPack().length >= 3) {
       console.log("Player " + this.name + "has a full pack already!");
       return false;
     } else {
       console.log("Added " + item + "to Player " + this.name + "'s pack!");
-      this._pack.push(item);
+      this.getPack().push(item);
       return true;
     }
   }
@@ -168,17 +168,17 @@ class Player {
  */
 
   discardItem(item) {
-    let index = this._pack.indexOf(item);
+    let index = this.getPack().indexOf(item);
     if (index === -1) {
       console.log("Nothing was discarded since " + item.name + " could not be found.");
       return false;
     } else {
-      this._pack.splice(index, 1);
+      this.getPack().splice(index, 1);
       console.log(item.name + " was removed from Player " + this.name + "'s pack.");
       return true;
     }
   }
-}
+
  /**
  * Player Class Method => checkPack()
  * -----------------------------
@@ -191,6 +191,10 @@ class Player {
  * @name checkPack
  */
 
+  checkPack() {
+    let packItems = this.getPack();
+    console.log("Player " + this.name + "'s pack: " + packItems);
+  }
 
 /**
  * Player Class Method => equip(itemToEquip)
@@ -212,6 +216,21 @@ class Player {
  * @param {Weapon} itemToEquip  The weapon item to equip.
  */
 
+  equip(itemToEquip) {
+    if (itemToEquip instanceof Weapon && this.getPack().indexOf(itemToEquip) !== -1) {
+      if (this.equipped !== false) { // weapon is already equipped
+        let weaponIndex = this.getPack().indexOf(this.itemToEquip); // get index of itemToEquip in pack
+        this.getPack().splice(weaponIndex, 1, this.equipped); // find and replace itemToEquip w/ currently equipped
+        this.equipped = itemToEquip; // replace equipped w/ itemToEquip
+      } 
+      else if (this.equipped === false) { // weapon is not equipped
+        this.equipped = itemToEquip;
+        this.discardItem(itemToEquip);
+      }
+    } else {
+      return false;
+    }  
+  }
 
 /**
  * Player Class Method => eat(itemToEat)
@@ -261,6 +280,7 @@ class Player {
  * @return {string/boolean}   Weapon name or false if nothing is equipped.
  */
 
+} // closes Player class
 
 /**
  * Class => Zombie(health, strength, speed)
