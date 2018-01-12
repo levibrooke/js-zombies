@@ -251,6 +251,18 @@ class Player {
  * @param {Food} itemToEat  The food item to eat.
  */
 
+eat(itemToEat) {
+  if (itemToEat instanceof Food && this.getPack().indexOf(itemToEat) !== -1) { // if itemToEat is Food
+    this.discardItem(itemToEat);
+    if (this.health + itemToEat.energy > this.getMaxHealth()) { // health + energy > maxHealth
+      this.health = this.getMaxHealth();
+    } else { 
+    this.health += itemToEat.energy;
+    }
+  } else {
+    return false;
+  }
+}
 
 /**
  * Player Class Method => useItem(item)
@@ -264,6 +276,14 @@ class Player {
  * @name useItem
  * @param {Item/Weapon/Food} item   The item to use.
  */
+
+useItem(item) {
+  if (item instanceof Weapon) {
+    this.equip(item);
+  } else if (item instanceof Food) {
+    this.eat(item);
+  }
+}
 
 
 /**
